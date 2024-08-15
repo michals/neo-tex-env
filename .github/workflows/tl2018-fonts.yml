@@ -1,0 +1,42 @@
+name: tl2018-fonts Docker Image
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+  pull_request:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t neo-tex-env:tl2018-fonts --label "runnumber=${GITHUB_RUN_ID}" src/tl2018-fonts
+
+      - name: Log in to registry
+        run: echo "${{ secrets.GHCR_PUBLISH_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=tl2018-fonts
+          echo IMAGE_ID=$IMAGE_ID
+          echo IMAGE_NAME=$IMAGE_NAME
+          echo VERSION=$VERSION
+          #docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          #docker push $IMAGE_ID:$VERSION
+          docker tag neo-tex-env:tl2018-fonts ghcr.io/michals/neo-tex-env:tl2018-fonts
+          docker push ghcr.io/michals/neo-tex-env:tl2018-fonts
+
