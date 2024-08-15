@@ -1,4 +1,5 @@
 FROM texlive/texlive:TL2018-historic
+LABEL org.opencontainers.image.source https://github.com/michals/neo-tex-env
 
 # Install fonts from AdobeReader
 RUN curl http://ardownload.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr9.5.5-1_i386linux_enu.deb > ar9.deb \
