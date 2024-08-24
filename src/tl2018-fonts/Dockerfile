@@ -8,9 +8,9 @@ RUN curl http://ardownload.adobe.com/pub/adobe/reader/unix/9.x/9.5.5/enu/AdbeRdr
     && cp /opt/Adobe/Reader9/Resource/Font/*.otf /usr/local/share/fonts/ \
     && rm -rf /opt/Adobe ar9.deb
 
-# Update font cache
+# Update font cache and install gawk
 RUN apt-get update \
-    && apt-get install -y fontconfig \
+    && apt-get install -y fontconfig gawk \
     && rm -rf /var/lib/apt/lists/* \
     && fc-cache -fv
 
