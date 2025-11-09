@@ -1,4 +1,4 @@
-name: Build and Push tl2018-fonts
+name: Build and Push tl2018-fonts pkg
 
 on:
   push:
