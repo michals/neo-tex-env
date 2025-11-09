@@ -14,4 +14,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && fc-cache -fv
 
-
+# Update font cache and install gawk
+RUN apt-get update \
+    && apt-get install -y poppler-utils \
+    && rm -rf /var/lib/apt/lists/* \
+    && fc-cache -fv
